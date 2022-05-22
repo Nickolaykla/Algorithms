@@ -6,7 +6,8 @@ public class Algorithms {
 //        bubbleSort(array);
 //        sortBySelect(array);
 //        insertSort(array);
-        fastSort(array);
+//        fastSort(array);
+        array = mergeSort(array);
     }
     //сортировка пузырьком O(N^2)
     public static void bubbleSort(int[] arr) {
@@ -81,4 +82,36 @@ public class Algorithms {
             recFastSort(arr, i, max);
 
     }
+    // сортировка слиянием О(N*logN)
+    public static int[] mergeSort(int[] arr) {
+        int[] sortArr = Arrays.copyOf(arr, arr.length); // array for sort
+        int[] bufferArr = new int[arr.length]; // buffer array
+        return  recMergeSort(sortArr, bufferArr, 0, arr.length);
+    }
+    public static int[] recMergeSort(int[] sortArr, int[] bufferArr, int startIndex, int endIndex) {
+        if (startIndex >= endIndex - 1) return sortArr;
+
+        int middle = startIndex + (endIndex - startIndex) / 2;
+        //get two sorted arrays
+        int[] firstSortArr = recMergeSort(sortArr, bufferArr, startIndex, middle);
+        int[] secondSortArr = recMergeSort(sortArr, bufferArr, middle, endIndex);
+
+        int firstIndex = startIndex;
+        int secondIndex = middle;
+        int destIndex = startIndex;
+
+        int[] result = firstSortArr == sortArr ? bufferArr : sortArr;
+        while (firstIndex < middle && secondIndex < endIndex) {
+            result[destIndex++] = firstSortArr[firstIndex] < secondSortArr[secondIndex] ?
+                                  firstSortArr[firstIndex++] : secondSortArr[secondIndex++];
+        }
+        while (firstIndex < middle) {
+            result[destIndex++] = firstSortArr[firstIndex++];
+        }
+        while (secondIndex < endIndex) {
+            result[destIndex++] = secondSortArr[secondIndex++];
+        }
+        return result;
+    }
+
 }
