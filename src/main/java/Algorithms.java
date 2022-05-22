@@ -3,8 +3,9 @@ import java.util.Arrays;
 public class Algorithms {
     public static void main(String[] args) {
         int[] array = {2, 1, 10, 5, 15, 4, 6};
-        //bubbleSort(array);
-        sortBySelect(array);
+//        bubbleSort(array);
+//        sortBySelect(array);
+          insertSort(array);
 
     }
     //сортировка пузырьком O(N^2)
@@ -34,5 +35,16 @@ public class Algorithms {
             arr[min] = temp;
         }
     }
-
+    // сортировка вставкой О(N^2)
+    public static void insertSort(int[] arr) {
+        for (int i = 1; i < arr.length ; i++) {
+            int temp = arr[i];
+            int j = i;
+            while (j > 0 && arr[j-1] >= temp) {
+                arr[j] = arr[j-1];
+                --j;
+            }
+            arr[j] = temp;
+        }
+}
 }
