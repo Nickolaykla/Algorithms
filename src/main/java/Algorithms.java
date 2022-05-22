@@ -5,8 +5,8 @@ public class Algorithms {
         int[] array = {2, 1, 10, 5, 15, 4, 6};
 //        bubbleSort(array);
 //        sortBySelect(array);
-          insertSort(array);
-
+//        insertSort(array);
+        fastSort(array);
     }
     //сортировка пузырьком O(N^2)
     public static void bubbleSort(int[] arr) {
@@ -47,4 +47,38 @@ public class Algorithms {
             arr[j] = temp;
         }
 }
+    // быстрая сортировка О(N*logN)
+    public static void fastSort(int[] arr) {
+        recFastSort(arr, 0, arr.length - 1);
+    }
+    public static void recFastSort(int[] arr, int min, int max) {
+        if (arr.length == 0) return;
+        if (min >= max) return;
+
+        int middleElement = arr[min + (max - min) / 2];
+
+        int i = min, j = max;
+        while (i <= j) {
+            while (arr[i] < middleElement) {
+                i++;
+            }
+            while (arr[j] > middleElement) {
+                j--;
+            }
+            if (i <= j) {
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+                i++;
+                j--;
+            }
+        }
+        // use recursion
+        if (min < j)
+            recFastSort(arr, min, j);
+
+        if (max > i)
+            recFastSort(arr, i, max);
+
+    }
 }
