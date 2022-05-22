@@ -7,8 +7,6 @@ public class Fibonacci {
     }
     // O(n)
     public static long fib(int n) {
-        if (n < 0) return 0;
-
         long[] arr = new long[n + 1];
         arr[0] = 0;
         arr[1] = 1;
@@ -18,10 +16,10 @@ public class Fibonacci {
         }
         return arr[n];
     }
-    // O(N^2)
+    // recursion O(N^2)
     public static long fibRec(int n) {
-        if (n == 0) return 0;
-        if (n == 1) return 1;
+        if (n <= 1) return n;
         return fibRec(n - 1) + fibRec(n - 2);
     }
+
 }
